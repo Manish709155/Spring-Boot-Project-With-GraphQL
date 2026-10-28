@@ -1,0 +1,330 @@
+// GraphIQL Local URL
+
+http://localhost:8082/graphiql?path=/graphql
+
+1.Create User
+
+// Client payload
+
+mutation{
+  createUser(
+    name: "Manish Kumar",
+    email: "manishkumar980165@gmail.com"
+    phone: "7091558135"
+  ){
+    id
+  }
+  }
+
+// Client Response
+
+{
+  "data": {
+    "createUser": {
+      "id": "1"
+    }
+  }
+}
+
+2. Get ALL User
+
+// Client Payload
+
+query{
+  getAllUser{
+    id,
+    name,
+    email,
+    phone
+  }
+}
+
+
+// Client Response
+
+{
+  "data": {
+    "getAllUser": [
+      {
+        "id": "1",
+        "name": "Manish Kumar",
+        "email": "manishkumar980165@gmail.com",
+        "phone": "7091558135"
+      },
+      {
+        "id": "2",
+        "name": "Raunak Kumar",
+        "email": "raunak.kumar980165@gmail.com",
+        "phone": "9091558135"
+      },
+      {
+        "id": "3",
+        "name": "Rakesh Kumar",
+        "email": "rakesh.kumar980165@gmail.com",
+        "phone": "6091558135"
+      }
+    ]
+  }
+}
+
+3. Get Single User
+
+// Client Payload
+query{
+  getUser(userId:1){
+    id,
+    name,
+    email,
+    phone
+  }
+}
+
+// Client Response
+
+{
+  "data": {
+    "getUser": {
+      "id": "1",
+      "name": "Manish Kumar",
+      "email": "manishkumar980165@gmail.com",
+      "phone": "7091558135"
+    }
+  }
+}
+
+4. Delete User By User ID
+
+// Client Payload
+
+mutation{
+   deleteUser(userId:1)
+  }
+
+
+// Client Response
+
+{
+  "data": {
+    "deleteUser": true
+  }
+}
+
+5. Update User
+
+// input payload
+
+mutation {
+
+  updateUser(
+    id: 2,
+    name: "Manish Kumar",
+    email: "manish@gmail.com",
+    phone: "9876543210"
+  ) {
+
+    id
+    name
+    email
+    phone
+  }
+}
+
+// response
+
+
+{
+  "data": {
+    "updateUser": {
+      "id": "2",
+      "name": "Manish Kumar",
+      "email": "manish@gmail.com",
+      "phone": "9876543210"
+    }
+  }
+}
+
+
+-------------------- Get ALL Users with Order Details -----------
+
+// Client Input PayLoad
+
+query{
+  getAllUser{
+    id,
+    name,
+    email,
+    phone,
+    orders{
+      orderDetail
+      price
+    }
+  }
+}
+
+// Response
+
+{
+  "data": {
+    "getAllUser": [
+      {
+        "id": "2",
+        "name": "Raunak Kumar",
+        "email": "raunak.kumar980165@gmail.com",
+        "phone": "9091558135",
+        "orders": [
+          {
+            "orderDetail": "Hp Pro Max",
+            "price": 80000
+          },
+          {
+            "orderDetail": "Hp Pro Max-5",
+            "price": 800000
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "name": "Rakesh Kumar",
+        "email": "rakesh.kumar980165@gmail.com",
+        "phone": "6091558135",
+        "orders": [
+          {
+            "orderDetail": "Hp Pro Max-2",
+            "price": 90000
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "Ranjan Kumar",
+        "email": "ranjan.kumar980165@gmail.com",
+        "phone": "5091558135",
+        "orders": [
+          {
+            "orderDetail": "Hp Pro Max-3",
+            "price": 100000
+          }
+        ]
+      }
+    ]
+  }
+}
+
+
+------------- Get User with theirs orders with user id -------
+
+// input payload
+
+query{
+  getUser(userId: 2){
+    id,
+    name,
+    email,
+    phone,
+    orders{
+      orderDetail
+      price
+    }
+  }
+}
+
+// response
+
+{
+  "data": {
+    "getUser": {
+      "id": "2",
+      "name": "Raunak Kumar",
+      "email": "raunak.kumar980165@gmail.com",
+      "phone": "9091558135",
+      "orders": [
+        {
+          "orderDetail": "Hp Pro Max",
+          "price": 80000
+        },
+        {
+          "orderDetail": "Hp Pro Max-5",
+          "price": 800000
+        }
+      ]
+    }
+  }
+}
+
+--------------------- Get ALL order With Users ---------------
+
+// input payload
+
+query{
+  getAllOrder{
+    id,
+    orderDetail,
+    price,
+    user{
+      id
+      name
+      email
+      phone
+    }
+  }
+}
+
+// response
+
+{
+  "data": {
+    "getAllOrder": [
+      {
+        "id": "1",
+        "orderDetail": "Hp Pro Max",
+        "price": 80000,
+        "user": {
+          "id": "2",
+          "name": "Raunak Kumar",
+          "email": "raunak.kumar980165@gmail.com",
+          "phone": "9091558135"
+        }
+      },
+      {
+        "id": "2",
+        "orderDetail": "Hp Pro Max-2",
+        "price": 90000,
+        "user": {
+          "id": "3",
+          "name": "Rakesh Kumar",
+          "email": "rakesh.kumar980165@gmail.com",
+          "phone": "6091558135"
+        }
+      },
+      {
+        "id": "3",
+        "orderDetail": "Hp Pro Max-3",
+        "price": 100000,
+        "user": {
+          "id": "4",
+          "name": "Ranjan Kumar",
+          "email": "ranjan.kumar980165@gmail.com",
+          "phone": "5091558135"
+        }
+      },
+      {
+        "id": "4",
+        "orderDetail": "Hp Pro Max-5",
+        "price": 800000,
+        "user": {
+          "id": "2",
+          "name": "Raunak Kumar",
+          "email": "raunak.kumar980165@gmail.com",
+          "phone": "9091558135"
+        }
+      }
+    ]
+  }
+}
+
+
+// Note : We can test on postman also select graphQl
+
+and pass
+
+http://localhost:8082/graphql

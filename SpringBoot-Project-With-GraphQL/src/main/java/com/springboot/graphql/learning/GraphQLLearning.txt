@@ -1,0 +1,190 @@
+1. What is GraphQL ?
+
+. GraphQL is a query language for APIs and runtime for fulfilling those queries with your
+existing data.GraphQL provides a complete and understandable description of the data in your
+API,gives clients the power  to ask for exactly what they need and nothing more, makes it
+easier to evolve APIs over time, and enables powerful developer tools.
+
+. GraphQL is a query language for APIs developed by Facebook (Meta). It allows clients (Frontend,
+Mobile Apps, Other Services) to request exactly the data they need from the server.
+
+. GraphQL is a query language for APIs developed by Facebook (Meta).
+
+It allows clients to request exactly the data they need from the server.
+
+Unlike REST, GraphQL uses a single endpoint and enables fetching multiple resources in one request.
+
+
+----  SPRING BOOT GRAPHQL INTERVIEW QUESTIONS & ANSWERS ---
+
+.GraphQL is a query language for APIs developed by Facebook (Meta). It allows clients to request exactly the data they need and uses a single endpoint.
+
+2. Advantages of GraphQL over REST
+- Single endpoint
+- Avoids over-fetching
+- Avoids under-fetching
+- Strongly typed schema
+- Flexible responses
+
+3. What are Query, Mutation, and Subscription?
+- Query: Read data
+- Mutation: Create/Update/Delete data
+- Subscription: Real-time updates
+
+4. Why single endpoint?
+GraphQL typically exposes POST /graphql. The operation determines the response.
+
+5. What is a GraphQL Schema?
+Defines types, queries, mutations, inputs, and relationships.
+
+6. Type vs Input Type
+Type: Used in responses.
+Input: Used in requests.
+
+7. What is @QueryMapping?
+Maps GraphQL queries to resolver methods.
+
+8. What is @MutationMapping?
+Maps GraphQL mutations to resolver methods.
+
+9. What is @SchemaMapping?
+Resolves nested relationships such as User -> Orders.
+
+10. What is DTO?
+Data Transfer Object used between layers.
+Examples: UserInput, UserResponse, OrderInput, OrderResponse.
+
+11. Why not expose entities directly?
+- Security
+- Loose coupling
+- Better maintainability
+
+12. What is the N+1 problem?
+Multiple database queries generated while resolving nested objects.
+
+13. How to solve N+1?
+- DataLoader
+- JOIN FETCH
+- EntityGraph
+
+14. What is DataLoader?
+Batches multiple database requests into a single query.
+
+15. How is validation implemented?
+Using Bean Validation annotations such as @NotBlank and @Email.
+
+16. How do you implement GraphQL exception handling?
+Using DataFetcherExceptionResolverAdapter.
+
+17. REST vs GraphQL exception handling
+REST: @ControllerAdvice
+GraphQL: DataFetcherExceptionResolver
+
+18. What is a Resolver?
+Equivalent to a controller in GraphQL.
+
+19. GraphQL execution flow
+Client -> Resolver -> Service -> Repository -> Database
+
+20. How do you secure GraphQL APIs?
+Spring Security, JWT, OAuth2, RBAC.
+
+21. Pagination in GraphQL
+Use page, size, and Pageable.
+
+22. User-Order Design
+UserResponse contains nested OrderResponse list.
+
+23. Why Service Layer?
+Business logic separation, reusability, validation, and transaction management.
+
+24. What is @Transactional?
+Executes operations in a database transaction and rolls back on failure.
+
+25. Production Architecture
+Resolver -> DTO -> Validation -> Service -> Mapper -> Repository -> PostgreSQL -> Global Exception Handler
+
+GLOBAL GRAPHQL ERROR HANDLING
+
+@Component
+public class GlobalGraphQLExceptionHandler
+        extends DataFetcherExceptionResolverAdapter {
+}
+
+Common Exceptions:
+- ResourceNotFoundException
+- ValidationException
+- BusinessException
+- UnauthorizedException
+
+Recommended Enterprise Stack:
+- Spring Boot 3.x
+- GraphQL
+- PostgreSQL
+- DTOs
+- MapStruct
+- JWT Security
+- Redis Cache
+- Flyway/Liquibase
+- DataLoader
+- Global Exception Handling
+- Unit & Integration Testing
+
+25.What is MapStruct?
+
+MapStruct is a Java library used to automatically map one object to another object at compile time.
+
+In Spring Boot projects, it is commonly used to convert:
+
+
+Entity ↔ DTO
+Request DTO → Entity
+Entity → Response DTO
+
+--- Most Important GraphQL Interview Annotations ----
+
+
+@Controller → Marks a class as a GraphQL Resolver that handles GraphQL requests.
+
+@QueryMapping → Maps a GraphQL Query operation to a Java method for fetching data.
+
+@MutationMapping → Maps a GraphQL Mutation operation to a Java method for creating, updating, or deleting data.
+
+@SubscriptionMapping → Maps a GraphQL Subscription operation to a Java method for real-time data updates.
+
+@SchemaMapping → Resolves nested or custom fields of a GraphQL type.
+
+@BatchMapping → Batches multiple GraphQL field requests into a single database call to solve the N+1 problem.
+
+@Argument → Maps GraphQL query or mutation arguments to Java method parameters.
+
+@ContextValue → Retrieves values from the GraphQL execution context.
+
+@LocalContextValue → Retrieves field-level context data during GraphQL execution.
+
+@ProjectedPayload → Maps GraphQL input directly to a projection interface.
+
+@AuthenticationPrincipal → Injects the currently authenticated user into a GraphQL resolver method.
+
+@PreAuthorize → Restricts GraphQL operations based on user roles or permissions.
+
+@Valid → Triggers validation on GraphQL input DTOs before processing.
+
+@Transactional → Executes GraphQL business operations within a database transaction.
+
+@Component → Registers GraphQL-related classes such as exception handlers and DataLoaders as Spring beans.
+
+@Service → Marks the service layer containing GraphQL business logic.
+
+@Repository → Marks the persistence layer responsible for database operations.
+
+@Mapper(componentModel = "spring") → Creates a Spring-managed MapStruct mapper for Entity-to-DTO and DTO-to-Entity conversions.
+
+@Bean → Creates custom GraphQL beans such as DataLoaders and RuntimeWiringConfigurers.
+
+DataFetcherExceptionResolverAdapter → Provides global exception handling for GraphQL applications.
+
+
+---Interview Answer:
+
+In Spring Boot GraphQL, @QueryMapping is used for fetching data, @MutationMapping is used for create/update/delete operations, @SchemaMapping resolves nested fields, @BatchMapping solves the N+1 problem, @Argument binds GraphQL inputs to method parameters, and DataFetcherExceptionResolverAdapter provides global exception handling.
